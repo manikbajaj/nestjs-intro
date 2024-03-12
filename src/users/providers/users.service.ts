@@ -26,7 +26,7 @@ export class UsersService {
   /*
    * Find a user by ID
    */
-  public findOneById(id: number) {
+  public findOneById(id: string) {
     return {
       id: 1234,
       firstName: 'Alice',

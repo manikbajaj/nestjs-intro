@@ -58,3 +58,4 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\
 ## Ignore package-lock
 package-lock.json
 
+package-lock.json

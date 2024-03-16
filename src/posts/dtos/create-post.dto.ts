@@ -9,6 +9,6 @@ export class CreatePostDto {
   schema: string;
   featuredImageUrl: string;
   publishOn: Date;
-  tags: [{ name: 'typescript' }, { name: 'nestjs' }];
+  tags: ['typescript', 'nestjs'];
   metaOptions: [{ key: 'sidebarEnabled'; value: false }];
 }

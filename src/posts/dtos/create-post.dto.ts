@@ -55,7 +55,7 @@ export class CreatePostDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  content: string;
+  content?: string;
 
   @ApiPropertyOptional({
     description:
@@ -63,27 +63,27 @@ export class CreatePostDto {
   })
   @IsOptional()
   @IsJSON()
-  schema: string;
+  schema?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsUrl()
-  featuredImageUrl: string;
+  featuredImageUrl?: string;
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     description: 'Must be a valid timestamp in ISO8601',
     example: '2024-03-16T07:46:32+0000',
   })
   @IsISO8601()
   @IsOptional()
-  publishOn: Date;
+  publishOn?: Date;
 
   @ApiPropertyOptional()
   @IsArray()
   @IsOptional()
   @IsString({ each: true })
   @MinLength(3, { each: true })
-  tags: string[];
+  tags?: string[];
 
   @ApiPropertyOptional({
     type: 'array',
@@ -104,5 +104,5 @@ export class CreatePostDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreatePostMetaOptionsDto)
-  metaOptions: CreatePostMetaOptionsDto[];
+  metaOptions?: CreatePostMetaOptionsDto[];
 }

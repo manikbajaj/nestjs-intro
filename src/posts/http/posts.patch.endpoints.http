@@ -1,0 +1,9 @@
+PATCH http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "id": 1234,
+  "title": "What's new with NestJS",
+  "postType": "post",
+  "content": "post-content"
+}

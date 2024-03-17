@@ -2,6 +2,6 @@ PATCH http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "email": "john",
+  "email": "john@email.com",
   "password": "Password123#"
 }

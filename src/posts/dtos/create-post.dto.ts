@@ -1,3 +1,4 @@
+// For Documenation refer url: https://docs.nestjs.com/openapi/types-and-parameters
 import { postStatus } from '../enums/post-status.enum';
 import {
   IsArray,

@@ -10,10 +10,10 @@ import {
 @Entity()
 export class MetaOptions {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({
-    type: 'text',
+    type: 'json',
     nullable: false,
   })
   metaValue: string;

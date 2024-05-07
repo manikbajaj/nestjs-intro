@@ -8,11 +8,12 @@ import {
   IsOptional,
   IsString,
   IsUrl,
-  Matches, MaxLength,
+  Matches,
+  MaxLength,
   Min,
   MinLength,
-  ValidateNested
-} from "class-validator";
+  ValidateNested,
+} from 'class-validator';
 
 import { CreatePostMetaOptionsDto } from './create-post-meta-options.dto';
 import { Type } from 'class-transformer';

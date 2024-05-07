@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class MetaOptions {
+export class MetaOption {
   @PrimaryGeneratedColumn()
   id: number;
 

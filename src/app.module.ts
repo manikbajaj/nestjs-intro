@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
  * Importing Entities
  * */
 import { User } from './users/user.entity';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { User } from './users/user.entity';
         database: 'nestjs-blog',
       }),
     }),
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

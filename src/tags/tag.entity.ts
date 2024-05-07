@@ -9,7 +9,7 @@ import {
 
 @Entity()
 export class Tags {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column({

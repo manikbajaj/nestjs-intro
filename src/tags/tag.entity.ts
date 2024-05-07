@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Tags {
+export class Tag {
   @PrimaryGeneratedColumn()
   id: string;
 

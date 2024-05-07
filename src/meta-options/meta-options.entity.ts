@@ -9,21 +9,14 @@ import {
 
 @Entity()
 export class MetaOptions {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({
-    type: 'varchar',
-    nullable: false,
-    length: 256,
-  })
-  key: string;
-
-  @Column({
-    type: 'text',
+    type: 'json',
     nullable: false,
   })
-  value: string;
+  metaValue: string;
 
   @CreateDateColumn()
   createDate: Date;

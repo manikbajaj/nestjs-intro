@@ -40,20 +40,17 @@ export class PostsService {
     return await this.postsRepository.save(post);
   }
 
-  public findAll(userId: string) {
-    const user = this.usersService.findOneById(userId);
+  /**
+   * Method to find all posts
+   */
+  public async findAll(userId: string) {
+    // find all posts
+    let posts = await this.postsRepository.find({
+      relations: {
+        metaOptions: true,
+      },
+    });
 
-    return [
-      {
-        user: user,
-        title: 'Test Tile',
-        content: 'Test Content',
-      },
-      {
-        user: user,
-        title: 'Test Tile 2',
-        content: 'Test Content 2',
-      },
-    ];
+    return posts;
   }
 }

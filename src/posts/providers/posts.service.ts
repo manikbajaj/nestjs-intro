@@ -34,9 +34,7 @@ export class PostsService {
   public async create(createPostDto: CreatePostDto) {
     // Create the metaOptions first if they exist
     let metaOptions = createPostDto.metaOptions
-      ? this.metaOptionsRepository.create({
-          metaValue: JSON.parse(createPostDto.metaOptions.metaValue),
-        })
+      ? this.metaOptionsRepository.create(createPostDto.metaOptions)
       : null;
 
     if (metaOptions) {

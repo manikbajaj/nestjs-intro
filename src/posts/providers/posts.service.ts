@@ -53,4 +53,18 @@ export class PostsService {
 
     return posts;
   }
+
+  /**
+   * Method to delete a post from the database
+   */
+  public async delete(id: number) {
+    // Find the post from the database
+    let post = await this.postsRepository.findOneBy({ id });
+
+    // Delete metaOptions and the post
+    await this.postsRepository.delete(id);
+    await this.metaOptionsRepository.delete(post.metaOptions.id);
+
+    return { deleted: true, id: post.id };
+  }
 }

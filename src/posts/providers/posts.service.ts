@@ -22,26 +22,18 @@ export class PostsService {
      */
     @InjectRepository(Post)
     private readonly postsRepository: Repository<Post>,
-
-    /**
-     * Injecting UsersRepository
-     */
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
   ) {}
 
   /**
    * Method to create a new post
    */
   public async create(createPostDto: CreatePostDto) {
-    let user = await this.usersRepository.findOneBy({
-      id: createPostDto.authorId,
-    });
+    let author = await this.usersService.findOneById(createPostDto.authorId);
 
     // Create the post
     let post = this.postsRepository.create({
       ...createPostDto,
-      author: user,
+      author: author,
     });
 
     return await this.postsRepository.save(post);

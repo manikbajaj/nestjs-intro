@@ -1,3 +1,4 @@
+import { TagsService } from './../../tags/providers/tags.service';
 import { CreatePostDto } from '../dtos/create-post.dto';
 import { Injectable } from '@nestjs/common';
 import { MetaOptionsService } from './../../meta-options/meta-options.service';
@@ -28,6 +29,11 @@ export class PostsService {
      */
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+
+    /**
+     * Injecting Tags service
+     */
+    private readonly tagsService: TagsService,
   ) {}
 
   /**
@@ -38,10 +44,13 @@ export class PostsService {
       id: createPostDto.authorId,
     });
 
+    let tags = await this.tagsService.findMultipleTags(createPostDto.tags);
+
     // Create the post
     let post = this.postsRepository.create({
       ...createPostDto,
       author: user,
+      tags: tags,
     });
 
     return await this.postsRepository.save(post);

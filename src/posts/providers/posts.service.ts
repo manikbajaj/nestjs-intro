@@ -1,7 +1,7 @@
 import { TagsService } from './../../tags/providers/tags.service';
 import { CreatePostDto } from '../dtos/create-post.dto';
 import { Injectable } from '@nestjs/common';
-import { MetaOptionsService } from './../../meta-options/meta-options.service';
+import { MetaOptionsService } from '../../meta-options/providers/meta-options.service';
 import { UsersService } from 'src/users/providers/users.service';
 import { Repository } from 'typeorm';
 import { Post } from '../post.entity';

@@ -15,5 +15,5 @@ Content-Type: application/json
     "metaValue": "{ \"sidebarEnabled\": true, \"footerActive\": true }"
     },
   "authorId": 1,
-  "tags": [1,2]
+  "tags": [1,4]
 }

@@ -2,7 +2,7 @@ PATCH http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "id": 8,
+  "id": 11,
   "title": "What's new with NestJS",
   "postType": "post",
   "status": "published",
@@ -12,5 +12,5 @@ Content-Type: application/json
   "metaOptions" : {
     "metaValue": "{ \"sidebarEnabled\": true, \"footerActive\": true }"
     },
-  "tags": [1]
+  "tags": [1,4]
 }

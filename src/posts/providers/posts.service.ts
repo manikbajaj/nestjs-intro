@@ -1,3 +1,4 @@
+import { PatchPostDto } from './../dtos/patch-post.dto';
 import { TagsService } from './../../tags/providers/tags.service';
 import { CreatePostDto } from '../dtos/create-post.dto';
 import { Injectable } from '@nestjs/common';
@@ -71,5 +72,23 @@ export class PostsService {
     await this.postsRepository.delete(id);
 
     return { deleted: true, id };
+  }
+
+  /**
+   * Method to Update a post
+   */
+  public async update(patchPostDto: PatchPostDto) {
+    // Find new tags
+    let tags = await this.tagsService.findMultipleTags(patchPostDto.tags);
+
+    // Update the post
+    let post = await this.postsRepository.findOneBy({
+      id: patchPostDto.id,
+    });
+
+    // Update the tags
+    post.tags = tags;
+
+    return await this.postsRepository.save(post);
   }
 }

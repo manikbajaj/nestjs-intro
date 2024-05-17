@@ -13,7 +13,7 @@ import { Post } from 'src/posts/post.entity';
 @Entity()
 export class Tag {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({
     type: 'varchar',

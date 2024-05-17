@@ -4,5 +4,9 @@
   "workbench.preferredDarkColorTheme": "Material Theme Darker High Contrast",
   "editor.fontSize": 16,
   "editor.tabSize": 2,
-  "window.zoomLevel": 1
+  "window.zoomLevel": 1,
+  "javascript.preferences.importModuleSpecifier": "shortest",
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "typescript.preferences.importModuleSpecifierEnding": "auto",
+  "javascript.preferences.importModuleSpecifierEnding": "auto"
 }

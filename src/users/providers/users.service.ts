@@ -60,10 +60,7 @@ export class UsersService {
     limt: number,
     page: number,
   ) {
-    // get an environment variable
-    const environment = this.configService.get<string>('S3_BUCKET');
-    console.log(environment);
-
+    //
     return [
       {
         firstName: 'John',

@@ -14,6 +14,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 
+// Get the current NODE_ENV
+const ENV = process.env.NODE_ENV;
+
 @Module({
   imports: [
     UsersModule,
@@ -21,6 +24,8 @@ import { UsersModule } from './users/users.module';
     AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
+      //envFilePath: ['.env.development', '.env'],
+      envFilePath: !ENV ? '.env' : `.env.${ENV}`,
     }),
     TypeOrmModule.forRootAsync({
       imports: [],

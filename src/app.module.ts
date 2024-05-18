@@ -14,7 +14,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
  * */
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
-import { appConfig } from './config/app.config';
+import appConfig from './config/app.config';
+import databaseConfig from './config/database.config';
 
 // Get the current NODE_ENV
 const ENV = process.env.NODE_ENV;
@@ -28,7 +29,7 @@ const ENV = process.env.NODE_ENV;
       isGlobal: true,
       //envFilePath: ['.env.development', '.env'],
       envFilePath: !ENV ? '.env' : `.env.${ENV}`,
-      load: [appConfig],
+      load: [appConfig, databaseConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

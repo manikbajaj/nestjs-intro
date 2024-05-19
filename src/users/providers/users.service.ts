@@ -46,6 +46,7 @@ export class UsersService {
     } catch (error) {
       // Might want to save these errors with more information in a log file or database
       // You don't need to send this sensitive information to user
+      console.log(error);
       throw new RequestTimeoutException(
         'Unable to process your request at the moment please try later',
         {
@@ -66,7 +67,17 @@ export class UsersService {
     // Try to create a new user
     // - Handle Exceptions Later
     let newUser = this.usersRepository.create(createUserDto);
-    newUser = await this.usersRepository.save(newUser);
+
+    try {
+      newUser = await this.usersRepository.save(newUser);
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at the moment please try later',
+        {
+          description: 'Error connecting to database',
+        },
+      );
+    }
 
     // Create the user
     return newUser;
@@ -99,8 +110,17 @@ export class UsersService {
    * Public method used to find one user using the ID of the user
    */
   public async findOneById(id: number) {
-    return await this.usersRepository.findOneBy({
-      id,
-    });
+    try {
+      return await this.usersRepository.findOneBy({
+        id,
+      });
+    } catch (e) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at the moment please try later',
+        {
+          description: 'Error connecting to database',
+        },
+      );
+    }
   }
 }

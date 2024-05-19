@@ -1,6 +1,8 @@
 import { GetUsersParamDto } from '../dtos/get-users-param.dto';
 import {
   BadRequestException,
+  HttpException,
+  HttpStatus,
   Inject,
   Injectable,
   RequestTimeoutException,
@@ -91,19 +93,23 @@ export class UsersService {
     limt: number,
     page: number,
   ) {
-    // Testing profileConfiguration
-    console.log(this.profileConfiguration);
-    console.log(this.profileConfiguration.apiKey);
-    return [
-      {
-        firstName: 'John',
-        email: 'john@doe.com',
-      },
-      {
-        firstName: 'Alice',
-        email: 'alice@doe.com',
-      },
-    ];
+    let loggenIn = false;
+    if (!loggenIn) {
+      throw new HttpException(
+        {
+          status: HttpStatus.MOVED_PERMANENTLY,
+          error: `The API endpoint doesn't exist anymore`,
+          fileName: 'users.service.ts',
+          lineNumber: 103,
+        },
+        HttpStatus.MOVED_PERMANENTLY,
+        {
+          cause: new Error(),
+          description:
+            'Occured because the API endpoint was permanently moved to a new location',
+        },
+      );
+    }
   }
 
   /**

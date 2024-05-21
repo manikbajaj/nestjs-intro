@@ -81,10 +81,20 @@ export class PostsService {
     // Find new tags
     let tags = await this.tagsService.findMultipleTags(patchPostDto.tags);
 
-    // Update the post
+    // Find the post
     let post = await this.postsRepository.findOneBy({
       id: patchPostDto.id,
     });
+
+    // Update post related properties
+    post.title = patchPostDto.title ?? post.title;
+    post.content = patchPostDto.content ?? post.content;
+    post.status = patchPostDto.status ?? post.status;
+    post.postType = patchPostDto.postType ?? post.postType;
+    post.slug = patchPostDto.slug ?? post.slug;
+    post.featuredImageUrl =
+      patchPostDto.featuredImageUrl ?? post.featuredImageUrl;
+    post.publishOn = patchPostDto.publishOn ?? post.publishOn;
 
     // Update the tags
     post.tags = tags;

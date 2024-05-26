@@ -116,8 +116,10 @@ export class UsersService {
    * Public method used to find one user using the ID of the user
    */
   public async findOneById(id: number) {
+    let user = undefined;
+
     try {
-      return await this.usersRepository.findOneBy({
+      user = await this.usersRepository.findOneBy({
         id,
       });
     } catch (e) {
@@ -127,6 +129,13 @@ export class UsersService {
           description: 'Error connecting to database',
         },
       );
+    }
+
+    /**
+     * Handle if user does not exist
+     */
+    if (!user) {
+      throw new BadRequestException('The user ID does not exist');
     }
   }
 }

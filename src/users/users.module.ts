@@ -14,8 +14,8 @@ import profileConfig from './config/profile.config';
   exports: [UsersService],
   imports: [
     TypeOrmModule.forFeature([User]),
-    forwardRef(() => AuthModule),
     ConfigModule.forFeature(profileConfig),
+    forwardRef(() => AuthModule),
   ],
 })
 export class UsersModule {}

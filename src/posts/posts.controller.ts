@@ -52,13 +52,10 @@ export class PostsController {
     description: 'A 200 response if the post is updated successfully',
   })
   @Patch()
-  public updatePost(@Body() patchPostsDto: PatchPostDto) {
-    return this.postsService.update(patchPostsDto);
+  public updatePost(@Body() patchPostDto: PatchPostDto) {
+    return this.postsService.update(patchPostDto);
   }
 
-  /**
-   * Route to delete a post
-   */
   @Delete()
   public deletePost(@Query('id', ParseIntPipe) id: number) {
     return this.postsService.delete(id);

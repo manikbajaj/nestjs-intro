@@ -60,7 +60,7 @@ export class UsersController {
   }
 
   @Post()
-  public createUser(@Body() createUserDto: CreateUserDto) {
+  public createUsers(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
 

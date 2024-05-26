@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MetaOption } from 'src/meta-options/meta-option.entity';
 import { TagsService } from 'src/tags/providers/tags.service';
 import { PatchPostDto } from '../dtos/patch-post.dto';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class PostsService {
@@ -36,7 +37,9 @@ export class PostsService {
    */
   public async create(@Body() createPostDto: CreatePostDto) {
     // Find author from database based on authorId
-    let author = await this.usersService.findOneById(createPostDto.authorId);
+    let author: User = await this.usersService.findOneById(
+      createPostDto.authorId,
+    );
     // Find tags
     let tags = await this.tagsService.findMultipleTags(createPostDto.tags);
 

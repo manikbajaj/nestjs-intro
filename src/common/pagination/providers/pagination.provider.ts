@@ -17,7 +17,7 @@ export class PaginationProvider {
   public async paginateQuery<T extends ObjectLiteral>(
     paginationQuery: PaginationQueryDto,
     repository: Repository<T>,
-  ) {
+  ): Promise<Paginated<T>> {
     let results = await repository.find({
       skip: (paginationQuery.page - 1) * paginationQuery.limit,
       take: paginationQuery.limit,
@@ -58,8 +58,6 @@ export class PaginationProvider {
         previous: `${newUrl.origin}${newUrl.pathname}?limit=${paginationQuery.limit}&page=${previousPage}`,
       },
     };
-
-    console.log(finalResponse);
 
     return finalResponse;
   }

@@ -14,6 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
  * */
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
+import { PaginationModule } from './common/pagination.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import enviromentValidation from './config/enviroment.validation';
@@ -50,6 +51,7 @@ const ENV = process.env.NODE_ENV;
     }),
     TagsModule,
     MetaOptionsModule,
+    PaginationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

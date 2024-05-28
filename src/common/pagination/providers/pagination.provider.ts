@@ -11,8 +11,8 @@ export class PaginationProvider {
     repository: Repository<T>,
   ) {
     let results = await repository.find({
-      skip: paginationQuery.offset ?? 0,
-      take: paginationQuery.limit ?? 10,
+      skip: (paginationQuery.page - 1) * paginationQuery.limit,
+      take: paginationQuery.limit,
     });
   }
 }

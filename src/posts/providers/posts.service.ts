@@ -64,8 +64,8 @@ export class PostsService {
         //author: true,
         // tags: true,
       },
-      skip: postQuery.offset ?? 0,
-      take: postQuery.limit ?? 10,
+      skip: (postQuery.page - 1) * postQuery.limit,
+      take: postQuery.limit,
     });
 
     return posts;

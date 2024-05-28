@@ -6,10 +6,10 @@ export class PaginationQueryDto {
   @IsOptional()
   @IsPositive()
   // Number of entries to return
-  limit?: number;
+  limit?: number = 10;
 
   @IsOptional()
   @IsPositive()
   // Number of entries to skip from start
-  offset?: number;
+  page?: number = 1;
 }

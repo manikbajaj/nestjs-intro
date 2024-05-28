@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 
 import { CreateManyUsersDto } from '../dtos/create-many-users.dto';
-import { CreateUserDto } from '../dtos/create-user.dto';
 import { DataSource } from 'typeorm';
 import { User } from '../user.entity';
 

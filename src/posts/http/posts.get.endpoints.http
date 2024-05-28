@@ -1,1 +1,11 @@
+{{
+  //pre request script
+  const date = new Date();
+  exports.startDate = date.toString();
+  exports.endDate = date.toString();
+}}
 GET  http://localhost:3000/posts/
+  ?startDate={{startDate}}
+  &endDate={{endDate}}
+  &limit=5
+  &offset=2

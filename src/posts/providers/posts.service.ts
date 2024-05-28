@@ -66,7 +66,7 @@ export class PostsService {
     let posts = await this.paginationProvider.paginateQuery(
       {
         limit: postQuery.limit,
-        offset: postQuery.offset,
+        page: postQuery.page,
       },
       this.postsRepository,
     );

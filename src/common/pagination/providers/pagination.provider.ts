@@ -9,10 +9,15 @@ export class PaginationProvider {
   public async paginateQuery<T extends ObjectLiteral>(
     paginationQuery: PaginationQueryDto,
     repository: Repository<T>,
-  ): Promise<Paginated<T>> {
+  ) {
     let results = await repository.find({
       skip: paginationQuery.offset ?? 0,
       take: paginationQuery.limit ?? 10,
     });
+
+    let finalResponse = {
+      data: results,
+    };
+    console.log(results);
   }
 }

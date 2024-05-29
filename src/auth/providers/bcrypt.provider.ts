@@ -5,10 +5,16 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class BcryptProvider implements HashingProvider {
-  hashPassword(data: string | Buffer): Promise<string> {
-    throw new Error('Method not implemented.');
+  public async hashPassword(data: string | Buffer): Promise<string> {
+    // Generate the salt
+    const salt = await bcrypt.genSalt();
+    return bcrypt.hash(data, salt);
   }
-  comparePassword(data: string | Buffer, encrypted: string): Promise<boolean> {
-    throw new Error('Method not implemented.');
+
+  public async comparePassword(
+    data: string | Buffer,
+    encrypted: string,
+  ): Promise<boolean> {
+    return bcrypt.compare(data, encrypted);
   }
 }

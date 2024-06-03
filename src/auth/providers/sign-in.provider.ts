@@ -8,6 +8,9 @@ import {
 import { UsersService } from 'src/users/providers/users.service';
 import { SignInDto } from '../dtos/signin.dto';
 import { HashingProvider } from './hashing.provider';
+import { JwtService } from '@nestjs/jwt';
+import jwtConfig from '../config/jwt.config';
+import { ConfigType } from '@nestjs/config';
 
 @Injectable()
 export class SignInProvider {
@@ -20,6 +23,17 @@ export class SignInProvider {
      * Inject the hashingProvider
      */
     private readonly hashingProvider: HashingProvider,
+
+    /**
+     * Inject jwtService
+     */
+    private readonly jwtService: JwtService,
+
+    /**
+     * Inject jwtConfiguration
+     */
+    @Inject(jwtConfig.KEY)
+    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
 
   public async signIn(signInDto: SignInDto) {
@@ -46,7 +60,23 @@ export class SignInProvider {
       throw new UnauthorizedException('Password does not match');
     }
 
-    // Send confirmation
-    return true;
+    // Generate access token
+    const accessToken = await this.jwtService.signAsync(
+      {
+        sub: user.id,
+        email: user.email,
+      },
+      {
+        audience: this.jwtConfiguration.audience,
+        issuer: this.jwtConfiguration.issuer,
+        secret: this.jwtConfiguration.secret,
+        expiresIn: this.jwtConfiguration.accessTokenTtl,
+      },
+    );
+
+    // Return Access token
+    return {
+      accessToken,
+    };
   }
 }

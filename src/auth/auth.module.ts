@@ -8,6 +8,7 @@ import { HashingProvider } from './providers/hashing.provider';
 import { JwtModule } from '@nestjs/jwt';
 import { SignInProvider } from './providers/sign-in.provider';
 import { UsersModule } from 'src/users/users.module';
+import jwtConfig from './config/jwt.config';
 
 @Module({
   controllers: [AuthController],
@@ -21,13 +22,8 @@ import { UsersModule } from 'src/users/users.module';
   ],
   imports: [
     forwardRef(() => UsersModule),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'),
-      }),
-    }),
+    ConfigModule.forFeature(jwtConfig),
+    JwtModule.registerAsync(jwtConfig.asProvider()),
   ],
   exports: [AuthService, HashingProvider],
 })

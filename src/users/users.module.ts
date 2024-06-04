@@ -1,5 +1,7 @@
 import { Module, forwardRef } from '@nestjs/common';
 
+import { APP_GUARD } from '@nestjs/core';
+import { AccessTokenGuard } from 'src/auth/guards/access-token/access-token.guard';
 import { AuthModule } from 'src/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { CreateUserProvider } from './providers/create-user.provider';
@@ -20,6 +22,10 @@ import profileConfig from './config/profile.config';
     UsersCreateManyProvider,
     CreateUserProvider,
     FindOneUserByEmailProvider,
+    {
+      provide: APP_GUARD,
+      useClass: AccessTokenGuard,
+    },
   ],
   exports: [UsersService],
   imports: [

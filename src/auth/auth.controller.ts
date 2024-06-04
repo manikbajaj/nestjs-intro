@@ -12,7 +12,7 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-  @Post()
+  @Post('sign-in')
   public signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto);
   }

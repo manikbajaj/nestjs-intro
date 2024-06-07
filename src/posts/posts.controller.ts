@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
 import { PostsService } from './providers/posts.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -44,8 +45,9 @@ export class PostsController {
     description: 'You get a 201 response if your post is created successfully',
   })
   @Post()
-  public createPost(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+  public createPost(@Req() request /**@Body() createPostDto: CreatePostDto*/) {
+    console.log(request.user);
+    //return this.postsService.create(createPostDto);
   }
 
   @ApiOperation({

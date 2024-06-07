@@ -1,8 +1,9 @@
 {{
-  export.publishOn = new Date().toString()
+  exports.publishOn = new Date().toString()
 }}
 POST http://localhost:3000/posts
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE5LCJlbWFpbCI6Im1hcmtAZG9lLmNvbSIsImlhdCI6MTcxNzc1NjEzMSwiZXhwIjoxNzE3NzU5NzMxLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.qKDkD2RnN-YmPwfowcDYyqdRK76robRgNwPin-TCI88
 
 {
   "title": "What's new with NestJS",

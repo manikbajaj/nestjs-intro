@@ -1,4 +1,4 @@
-POST http://localhost:3000/auth
+POST http://localhost:3000/auth/sign-in
 Content-Type: application/json
 
 {

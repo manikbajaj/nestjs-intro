@@ -67,7 +67,7 @@ export class UsersController {
 
   @Post()
   // @SetMetadata('authType', 'none')
-  @Auth(AuthType.Bearer, AuthType.None)
+  @Auth(AuthType.None)
   public createUsers(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }

@@ -5,6 +5,7 @@ import { AccessTokenGuard } from './auth/guards/access-token/access-token.guard'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { AuthenticationGuard } from './auth/guards/authentication/authentication.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { MetaOptionsModule } from './meta-options/meta-options.module';
 import { Module } from '@nestjs/common';
@@ -64,8 +65,9 @@ const ENV = process.env.NODE_ENV;
     AppService,
     {
       provide: APP_GUARD,
-      useClass: AccessTokenGuard,
+      useClass: AuthenticationGuard,
     },
+    AccessTokenGuard,
   ],
 })
 export class AppModule {}

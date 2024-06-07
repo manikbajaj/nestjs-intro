@@ -22,18 +22,12 @@ import profileConfig from './config/profile.config';
     UsersCreateManyProvider,
     CreateUserProvider,
     FindOneUserByEmailProvider,
-    {
-      provide: APP_GUARD,
-      useClass: AccessTokenGuard,
-    },
   ],
   exports: [UsersService],
   imports: [
     TypeOrmModule.forFeature([User]),
     ConfigModule.forFeature(profileConfig),
     forwardRef(() => AuthModule),
-    ConfigModule.forFeature(jwtConfig),
-    JwtModule.registerAsync(jwtConfig.asProvider()),
   ],
 })
 export class UsersModule {}

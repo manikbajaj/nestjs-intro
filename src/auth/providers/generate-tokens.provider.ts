@@ -18,7 +18,7 @@ export class GenerateTokensProvider {
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
 
-  private async signToken<T>(userId: number, expiresIn: number, payload?: T) {
+  public async signToken<T>(userId: number, expiresIn: number, payload?: T) {
     return await this.jwtService.signAsync(
       {
         sub: userId,

@@ -4,6 +4,9 @@ import jwtConfig from 'src/auth/config/jwt.config';
 import { OAuth2Client } from 'google-auth-library';
 import { UsersService } from 'src/users/providers/users.service';
 import { GoogleTokenDto } from '../dtos/google-token.dto';
+import { GenerateTokensProvider } from 'src/auth/providers/generate-tokens.provider';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class GoogleAuthenticationService implements OnModuleInit {
@@ -18,6 +21,10 @@ export class GoogleAuthenticationService implements OnModuleInit {
      */
     @Inject(jwtConfig.KEY)
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
+    /**
+     * Inject generateTokensProvider
+     */
+    private readonly generateTokensProvider: GenerateTokensProvider,
   ) {}
 
   onModuleInit() {
@@ -28,10 +35,20 @@ export class GoogleAuthenticationService implements OnModuleInit {
 
   async authenticate(googleTokenDto: GoogleTokenDto) {
     // Verify the Google Token Sent By User
+    const loginToken = await this.oauthClient.verifyIdToken({
+      idToken: googleTokenDto.token,
+    });
     // Extract the payload from Google Token
+    const { email, sub: googleId } = loginToken.getPayload();
     // Find the user in the database using the googleId
+    const user = await this.usersService.findOneByGoogleId(googleId);
     // If user id found generate the tokens
-    // If not create a new user and generate the tokens
+    if (user) {
+      return this.generateTokensProvider.generateTokens(user);
+    } else {
+      // If not create a new user and generate the tokens
+    }
+
     // throw Unauthorised exception if not Authorised
   }
 }

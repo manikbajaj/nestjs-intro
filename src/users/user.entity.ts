@@ -32,9 +32,16 @@ export class User {
   @Column({
     type: 'varchar',
     length: 96,
-    nullable: false,
+    nullable: true,
   })
   password: string;
+
+  @Column({
+    type: 'varchar',
+    length: 512,
+    nullable: true,
+  })
+  googleId: string;
 
   @OneToMany(() => Post, (post) => post.author)
   posts: Post[];

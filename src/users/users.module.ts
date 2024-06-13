@@ -12,6 +12,7 @@ import { User } from './user.entity';
 import { UsersController } from './users.controller';
 import { UsersCreateManyProvider } from './providers/users-create-many.provider';
 import { UsersService } from './providers/users.service';
+import { FindOneByGoogleIdProvider } from './providers/find-one-by-google-id.provider';
 import jwtConfig from 'src/auth/config/jwt.config';
 import profileConfig from './config/profile.config';
 
@@ -22,6 +23,7 @@ import profileConfig from './config/profile.config';
     UsersCreateManyProvider,
     CreateUserProvider,
     FindOneUserByEmailProvider,
+    FindOneByGoogleIdProvider,
   ],
   exports: [UsersService],
   imports: [

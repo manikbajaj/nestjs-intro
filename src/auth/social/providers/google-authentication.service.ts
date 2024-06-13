@@ -1,4 +1,10 @@
-import { Inject, Injectable, OnModuleInit, forwardRef } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  OnModuleInit,
+  UnauthorizedException,
+  forwardRef,
+} from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import jwtConfig from 'src/auth/config/jwt.config';
 import { OAuth2Client } from 'google-auth-library';
@@ -34,30 +40,38 @@ export class GoogleAuthenticationService implements OnModuleInit {
   }
 
   async authenticate(googleTokenDto: GoogleTokenDto) {
-    // Verify the Google Token Sent By User
-    const loginTicket = await this.oauthClient.verifyIdToken({
-      idToken: googleTokenDto.token,
-    });
-    // Extract the payload from Google Token
-    const {
-      email,
-      sub: googleId,
-      given_name: firstName,
-      family_name: lastName,
-    } = loginTicket.getPayload();
-    // Find the user in the database using the googleId
-    const user = await this.usersService.findOneByGoogleId(googleId);
-    console.log(firstName);
-    console.log(lastName);
-    console.log(email);
-    console.log(googleId);
-    // If user id found generate the tokens
-    if (user) {
-      return this.generateTokensProvider.generateTokens(user);
-    } else {
-      // If not create a new user and generate the tokens
-    }
+    try {
+      // Verify the Google Token Sent By User
+      const loginTicket = await this.oauthClient.verifyIdToken({
+        idToken: googleTokenDto.token,
+      });
+      // Extract the payload from Google Token
+      const {
+        email,
+        sub: googleId,
+        given_name: firstName,
+        family_name: lastName,
+      } = loginTicket.getPayload();
+      // Find the user in the database using the googleId
+      const user = await this.usersService.findOneByGoogleId(googleId);
 
-    // throw Unauthorised exception if not Authorised
+      // If user id found generate the tokens
+      if (user) {
+        return await this.generateTokensProvider.generateTokens(user);
+      } else {
+        // If not create a new user and generate the tokens
+        const newUser = await this.usersService.createGoogleUser({
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          googleId: googleId,
+        });
+        return await this.generateTokensProvider.generateTokens(newUser);
+      }
+
+      // throw Unauthorised exception if not Authorised
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 }

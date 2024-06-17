@@ -22,6 +22,7 @@ export class AuthController {
     return this.authService.signIn(signInDto);
   }
 
+  @Auth(AuthType.None)
   @HttpCode(HttpStatus.OK) // changed since the default is 201
   @Post('refresh-tokens')
   refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {

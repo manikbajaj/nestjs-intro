@@ -21,6 +21,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { UploadsModule } from './uploads/uploads.module';
+import { MailModule } from './mail/mail.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import enviromentValidation from './config/enviroment.validation';
@@ -62,6 +63,7 @@ const ENV = process.env.NODE_ENV;
     MetaOptionsModule,
     PaginationModule,
     UploadsModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [

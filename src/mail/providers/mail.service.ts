@@ -6,14 +6,14 @@ import { User } from 'src/users/user.entity';
 export class MailService {
   constructor(private mailerService: MailerService) {}
 
-  async sendUserWelcome(user: User, token: string) {
+  async sendUserWelcome(user: User) {
     await this.mailerService.sendMail({
       to: user.email,
       // override default from
       from: '"Onbaording Team" <support@nestjs-blog.com>',
       subject: 'Welcome to NestJs Blog',
       // `.ejs` extension is appended automatically to template
-      template: './welcome.mail',
+      template: './welcome',
       // Context is available in email template
       context: {
         name: user.firstName,

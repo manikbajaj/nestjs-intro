@@ -8,7 +8,10 @@ import {
 import { Express } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadsService } from './providers/uploads.service';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { AuthType } from 'src/auth/enums/auth-type.enum';
 
+@Auth(AuthType.None)
 @Controller('uploads')
 export class UploadsController {
   constructor(

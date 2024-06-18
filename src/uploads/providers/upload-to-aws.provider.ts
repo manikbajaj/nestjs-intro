@@ -19,6 +19,7 @@ export class UploadToAwsProvider {
           Bucket: this.configService.get<string>('appConfig.awsBucketName'),
           Body: file.buffer,
           Key: this.generateFileName(file),
+          ContentType: file.mimetype,
         })
         .promise(); // Promisify the request
 

@@ -25,7 +25,7 @@ import { join } from 'path';
         },
         template: {
           dir: join(__dirname, 'templates'),
-          adapter: new EjsAdapter(),
+          adapter: new EjsAdapter({ inlineCssEnabled: true }),
           options: {
             strict: false,
           },

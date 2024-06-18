@@ -20,7 +20,7 @@ export class UploadToAwsProvider {
           Body: file.buffer,
           Key: this.generateFileName(file),
         })
-        .promise();
+        .promise(); // used to promisify the request
 
       // Return the file name
       return uploadResult.Key;

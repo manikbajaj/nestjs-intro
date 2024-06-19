@@ -6,7 +6,7 @@ import { User } from 'src/users/user.entity';
 export class MailService {
   constructor(private mailerService: MailerService) {}
 
-  async sendUserWelcome(user: User) {
+  async sendUserWelcome(user: User): Promise<void> {
     await this.mailerService.sendMail({
       to: user.email,
       // override default from

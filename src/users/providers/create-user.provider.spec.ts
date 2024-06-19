@@ -11,6 +11,7 @@ type MockRepository<T = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
 const createMockRepository = <T = any>(): MockRepository<T> => ({
   findOne: jest.fn(),
   create: jest.fn(),
+  save: jest.fn(),
 });
 
 describe('CreateUserProvider', () => {
@@ -23,8 +24,14 @@ describe('CreateUserProvider', () => {
         CreateUserProvider,
         { provide: DataSource, useValue: {} },
         { provide: getRepositoryToken(User), useValue: createMockRepository() },
-        { provide: HashingProvider, useValue: {} },
-        { provide: MailService, useValue: {} },
+        {
+          provide: HashingProvider,
+          useValue: { hashPassword: jest.fn(() => 'hash') },
+        },
+        {
+          provide: MailService,
+          useValue: { sendUserWelcome: jest.fn(() => Promise.resolve()) },
+        },
       ],
     }).compile();
 
@@ -34,5 +41,17 @@ describe('CreateUserProvider', () => {
 
   it('Should Be Defined', () => {
     expect(provider).toBeDefined();
+  });
+
+  describe('createUser', () => {
+    const user = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john@doe.com',
+      password: 'password',
+    };
+    describe('When User Does Not Exist', () => {
+      it('Should create a new user', async () => {});
+    });
   });
 });

@@ -1,6 +1,7 @@
 import { DataSource, Repository } from 'typeorm';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { BadRequestException } from '@nestjs/common';
 import { CreateUserProvider } from './create-user.provider';
 import { HashingProvider } from 'src/auth/providers/hashing.provider';
 import { MailService } from 'src/mail/providers/mail.service';
@@ -51,7 +52,31 @@ describe('CreateUserProvider', () => {
 
   describe('createUser', () => {
     describe('When User Does Not Exist', () => {
-      it('Should create a new user', async () => {});
+      it('Should create a new user', async () => {
+        usersRepository.findOne.mockResolvedValue(null);
+        usersRepository.create.mockReturnValue(user);
+        usersRepository.save.mockResolvedValue(user);
+
+        const newUser = await provider.createUser(user);
+
+        expect(usersRepository.findOne).toHaveBeenCalledWith({
+          where: { email: user.email },
+        });
+        expect(usersRepository.create).toHaveBeenCalledWith(user);
+        expect(usersRepository.save).toHaveBeenCalledWith(user);
+      });
+    });
+    describe('When Same User Exist', () => {
+      it('Should Throw BadRequestException', async () => {
+        usersRepository.findOne.mockResolvedValue(user.email);
+        usersRepository.create.mockReturnValue(user);
+        usersRepository.save.mockResolvedValue(user);
+        try {
+          const newUser = await provider.createUser(user);
+        } catch (error) {
+          expect(error).toBeInstanceOf(BadRequestException);
+        }
+      });
     });
   });
 });

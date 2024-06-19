@@ -13,9 +13,7 @@ describe('UsersService', () => {
     service = module.get<UsersService>(UsersService);
   });
 
-  describe('UsersService', () => {
-    it('Should be defined', () => {
-      expect(service).toBeDefined();
-    });
+  it('Should be defined', () => {
+    expect(service).toBeDefined();
   });
 });

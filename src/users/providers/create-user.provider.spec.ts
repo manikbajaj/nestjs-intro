@@ -17,6 +17,12 @@ const createMockRepository = <T = any>(): MockRepository<T> => ({
 describe('CreateUserProvider', () => {
   let provider: CreateUserProvider;
   let usersRepository: MockRepository;
+  const user = {
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john@doe.com',
+    password: 'password',
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -26,7 +32,7 @@ describe('CreateUserProvider', () => {
         { provide: getRepositoryToken(User), useValue: createMockRepository() },
         {
           provide: HashingProvider,
-          useValue: { hashPassword: jest.fn(() => 'hash') },
+          useValue: { hashPassword: jest.fn(() => user.password) },
         },
         {
           provide: MailService,
@@ -44,14 +50,6 @@ describe('CreateUserProvider', () => {
   });
 
   describe('createUser', () => {
-    const user = {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john@doe.com',
-      password: 'password',
-    };
-    describe('When User Does Not Exist', () => {
-      it('Should create a new user', async () => {});
-    });
+    describe('When User Does Not Exist', () => {});
   });
 });

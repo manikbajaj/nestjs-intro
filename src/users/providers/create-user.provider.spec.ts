@@ -50,6 +50,8 @@ describe('CreateUserProvider', () => {
   });
 
   describe('createUser', () => {
-    describe('When User Does Not Exist', () => {});
+    describe('When User Does Not Exist', () => {
+      it('Should create a new user', async () => {});
+    });
   });
 });

@@ -21,8 +21,8 @@ describe('[Users] @Post Endpoints', () => {
 
   it.todo('/users - Endpoint is public');
   it.todo('/users - firstName is mandatory');
-  it.todo('/users - lastName is mandatory');
   it.todo('/users - email is mandatory');
+  it.todo('/users - password is mandatory');
   it.todo('/users - Valid request successfully creates user');
   it.todo('/users - password is not returned in response');
   it.todo('/users - googleId is not returned in response');

@@ -1,9 +1,6 @@
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Test, TestingModule } from '@nestjs/testing';
-
-import { AppModule } from 'src/app.module';
+import { ConfigService } from '@nestjs/config';
 import { INestApplication } from '@nestjs/common';
-import { appCreate } from 'src/app.create';
+import { bootstrapNestApplication } from 'test/helpers/bootstrap-nest-application.helper';
 import { dropDatabase } from 'test/helpers/drop-database.helper';
 
 describe('[Users] @Post Endpoints', () => {
@@ -11,17 +8,10 @@ describe('[Users] @Post Endpoints', () => {
   let config: ConfigService;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, ConfigModule],
-      providers: [ConfigService],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    // Add all app middleware
-    appCreate(app);
+    // Instantiate the app
+    app = await bootstrapNestApplication();
+    // Get the config
     config = app.get<ConfigService>(ConfigService);
-
-    await app.init();
   });
 
   afterEach(async () => {

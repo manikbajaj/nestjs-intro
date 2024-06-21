@@ -4,19 +4,19 @@ export const completeUser = {
   firstName: faker.person.firstName(),
   lastName: faker.person.lastName(),
   email: faker.internet.email(),
-  password: 'password',
+  password: 'Password123#',
 };
 
 export const misingFirstName = {
   lastName: faker.person.lastName(),
   email: faker.internet.email(),
-  password: 'password',
+  password: 'Password123#',
 };
 
 export const missingEmail = {
   firstName: faker.person.firstName(),
   lastName: faker.person.lastName(),
-  password: 'password',
+  password: 'Password123#',
 };
 
 export const missingPassword = {

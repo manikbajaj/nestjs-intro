@@ -29,8 +29,9 @@ describe('[Users] @Post Endpoints', () => {
     return request(httpServer)
       .post('/users')
       .send({})
-      .then((data) => {
-        console.log(data);
+      .expect(400)
+      .then(({ body }) => {
+        console.log(body);
       });
   });
 

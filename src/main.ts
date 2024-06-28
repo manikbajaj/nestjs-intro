@@ -8,6 +8,6 @@ async function bootstrap() {
   // Add required middleware
   appCreate(app);
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

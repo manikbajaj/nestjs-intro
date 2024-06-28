@@ -8,50 +8,49 @@ import {
   Body,
   ParseIntPipe,
   DefaultValuePipe,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { GetUsersParamDto } from './dtos/get-users-param.dto';
 import { PatchUserDto } from './dtos/patch-user.dto';
 import { UsersService } from './providers/users.service';
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiQuery, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { CreateManyUsersDto } from './dtos/create-many-users.dto';
+import { AccessTokenGuard } from 'src/auth/guards/access-token/access-token.guard';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { AuthType } from 'src/auth/enums/auth-type.enum';
 
-/**
- * Controller class for '/users' API endpoint
- */
 @Controller('users')
 @ApiTags('Users')
 export class UsersController {
-  /**
-   * Injects dependencies for the controller
-   */
   constructor(
     // Injecting Users Service
     private readonly usersService: UsersService,
   ) {}
 
-  /**
-   *  Public method responsible for handling the GET request send to '/users' route
-   */
   @Get('/:id?')
   @ApiOperation({
-    summary: 'Fetches a list of registered users on the application.',
-  })
-  @ApiQuery({
-    name: 'limit',
-    type: String,
-    description: 'The upper limit of pages you want the pagination to return',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'page',
-    type: String,
-    description:
-      'The position of the page number that you want the API to return',
-    required: false,
+    summary: 'Fetches a list of registered users on the application',
   })
   @ApiResponse({
     status: 200,
     description: 'Users fetched successfully based on the query',
+  })
+  @ApiQuery({
+    name: 'limit',
+    type: 'number',
+    required: false,
+    description: 'The number of entries returned per query',
+    example: 10,
+  })
+  @ApiQuery({
+    name: 'page',
+    type: 'number',
+    required: false,
+    description:
+      'The position of the page number that you want the API to return',
+    example: 1,
   })
   public getUsers(
     @Param() getUserParamDto: GetUsersParamDto,
@@ -61,18 +60,19 @@ export class UsersController {
     return this.usersService.findAll(getUserParamDto, limit, page);
   }
 
-  /**
-   *  Public method responsible for handling the POST request send to '/users' route
-   */
   @Post()
+  // @SetMetadata('authType', 'none')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Auth(AuthType.None)
   public createUsers(@Body() createUserDto: CreateUserDto) {
-    console.log(createUserDto instanceof CreateUserDto);
-    return 'You sent a post request to users endpoint';
+    return this.usersService.createUser(createUserDto);
   }
 
-  /**
-   * Public method responsible for handling the PATCH request send to '/users' route
-   */
+  @Post('create-many')
+  public createManyUsers(@Body() createManyUsersDto: CreateManyUsersDto) {
+    return this.usersService.createMany(createManyUsersDto);
+  }
+
   @Patch()
   public patchUser(@Body() patchUserDto: PatchUserDto) {
     return patchUserDto;

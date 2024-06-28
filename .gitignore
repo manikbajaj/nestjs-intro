@@ -41,6 +41,9 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+.env.development
+.env.test
+.env.production
 
 # temp directory
 .temp
@@ -53,11 +56,11 @@ pids
 *.pid.lock
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-## Ignore package-lock
-package-lock.json
-
-## Ignoring Compodoc Documentation
+## ignoring documentation
 /documentation
 
+## ignoring .vscode 
+/.vscode
+package-lock.json

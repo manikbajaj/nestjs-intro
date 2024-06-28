@@ -1,24 +1,22 @@
-# {\r\n    \"@context\": \"https:\/\/schema.org\",\r\n    \"@type\": \"Person\"\r\n  }
+{{
+  exports.publishOn = new Date().toString()
+}}
 POST http://localhost:3000/posts
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE5LCJlbWFpbCI6Im1hcmtAZG9lLmNvbSIsImlhdCI6MTcxNzc2MTUyMSwiZXhwIjoxNzE3NzY1MTIxLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.6FENG3lIPBvph6Jxewg1C_xJKe1ChLYF4GnXHJG9yMY
 
 {
   "title": "What's new with NestJS",
   "postType": "post",
-  "slug": "new-with-nest-js",
+  "slug": "new-with-nestjs-4",
   "status": "draft",
-  "content": "post-content",
-  "schema": "{\r\n    \"@context\": \"https:\/\/schema.org\",\r\n    \"@type\": \"Person\"\r\n  }",
+  "content": "test content",
+  "schema": "{\r\n \"@context\": \"https:\/\/schema.org\",\r\n \"@type\": \"Person\"\r\n }",
   "featuredImageUrl": "http://localhost.com/images/image1.jpg",
-  "publishOn": "2024-03-16T07:46:32+0000",
-  "tags": [
-    "nestJS",
-    "typescript"
-  ],
-  "metaOptions": [
-    {
-      "key": "testKey",
-      "value": 20
-    }
-  ]
+  "publishOn": "{{publishOn}}",
+  //"tags": ["nestjs", "typescript"],
+  "metaOptions" : {
+      "metaValue": "{\"sidebarEnabled\": true, \"footerActive\":true}"
+    },
+  "tags": [1,2]
 }

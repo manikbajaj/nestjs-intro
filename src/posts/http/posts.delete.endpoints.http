@@ -1,0 +1,2 @@
+DELETE http://localhost:3000/posts
+  ?id=7

@@ -12,16 +12,13 @@ import {
 
 @Controller('users')
 export class UsersController {
-  @Get('/:id/:optional?')
-  public getUsers(@Param() params: any, @Query() query: any) {
-    console.log(params);
-    console.log(query);
+  @Get('/:id?/{:optional}') // With NEstJS 11 + use this syntax {:optional}
+  public getUsers() {
     return 'You sent a get request to users endpoint';
   }
 
   @Post()
-  public createUsers(@Body() request: any) {
-    console.log(request);
+  public createUsers() {
     return 'You sent a post request to users endpoint';
   }
 }
